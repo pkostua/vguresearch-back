@@ -12,10 +12,8 @@ data class UserAccount (
     var email: String = "",
     var userName: String = "",
 
-    @Column(columnDefinition = "CLOB")
     var profileUrl: String? = null,
 
-    @Column(columnDefinition = "CLOB")
     var imageUrl: String? = null,
 
     @Enumerated(EnumType.STRING)

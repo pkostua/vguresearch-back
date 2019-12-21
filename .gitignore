@@ -1,5 +1,6 @@
 .gradle
 /build/
+application-dev.yml
 
 ### STS ###
 .apt_generated
@@ -9,6 +10,7 @@
 .settings
 .springBeans
 .sts4-cache
+
 
 ### IntelliJ IDEA ###
 .idea

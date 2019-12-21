@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component
 @Component
 @ConfigurationProperties("spring.social.encrypt")
 class SocialEncryptEnvironment {
-    val key: String? = null
-    val salt: String? = null
+    var key: String? = null
+    var salt: String? = null
+
 }

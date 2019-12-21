@@ -12,7 +12,7 @@ spring:
                 temp:
                     use_jdbc_metadata_defaults: false
     liquibase:
-        enabled: true
+        enabled: false
         change-log: classpath:db/changelog/db.changelog-master.yaml
     resources:
         add-mappings: false
