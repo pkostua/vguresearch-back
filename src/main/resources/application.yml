@@ -12,7 +12,7 @@ spring:
                 temp:
                     use_jdbc_metadata_defaults: false
     liquibase:
-        enabled: false
+        enabled: true
         change-log: classpath:db/changelog/db.changelog-master.yaml
     resources:
         add-mappings: false
@@ -28,3 +28,13 @@ spring:
         store-type: jdbc
 
 server.servlet.session.cookie.name: SESSION_ID
+
+logging:
+    file: ./log.log
+
+management:
+    endpoints:
+        enabled-by-default: true
+        web:
+            exposure:
+                include: "*"
