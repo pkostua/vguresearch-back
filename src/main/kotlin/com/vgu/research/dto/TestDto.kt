@@ -11,7 +11,8 @@ data class TestDto(
 enum class SppChildrenBallType{
     sft, // суверенность физического тела
     st, //Суверенность территории
-    smv //Суверенность мира вещщей
+    smv, //Суверенность мира вещей
+    sp //суверенность привычек
 }
 
 data class TestDtoAns(
