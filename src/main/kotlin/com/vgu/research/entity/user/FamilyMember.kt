@@ -8,7 +8,8 @@ import javax.persistence.*
 class FamilyMember (
         var name: String="",
         var age: Int = 0,
-        var sex: Sex = Sex.BOY
+        var sex: Sex? = null,
+        var familyPosition: FamilyPosition? = null
 )
 {
     @JsonIgnore @ManyToOne

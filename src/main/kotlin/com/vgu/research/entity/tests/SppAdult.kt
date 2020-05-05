@@ -3,6 +3,7 @@ package com.vgu.research.entity.tests
 import com.vgu.research.dto.SppBallType
 import com.vgu.research.dto.TestDto
 import com.vgu.research.dto.TestDtoAns
+import com.vgu.research.entity.user.FamilyMember
 import com.vgu.research.entity.user.User
 import java.util.*
 import javax.persistence.*
@@ -38,8 +39,12 @@ class SppAdult() {
     @ManyToOne
     var user: User? = null
 
-    constructor(ansList: MutableList<TestDtoAns>, user: User?):this(){
+    @ManyToOne
+    var familyMember: FamilyMember? = null
+
+    constructor(ansList: MutableList<TestDtoAns>, user: User?, familyMember: FamilyMember?):this(){
         this.user = user
+        this.familyMember= familyMember
         ansList.forEach{ans->
             data.find { it.id == ans.id }?.let {
                 when(it.type){
