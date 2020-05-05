@@ -16,3 +16,12 @@ databaseChangeLog:
       - sql:
           comment: init4
           sql: create unique index UserProfilePK on UserProfile(userId);
+
+- changeSet:
+    id: testref
+    author: pkostua
+    comment: ""
+    changes:
+      - sql:
+          comment: test ref
+          sql: delete from spp_children
