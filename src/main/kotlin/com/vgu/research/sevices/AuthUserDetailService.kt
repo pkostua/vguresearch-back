@@ -28,7 +28,7 @@ class AuthUserDetailService(
     override fun loadUserByUserId(accountId: String): SocialUserDetails {
         val user = userRepository.findByAccountId(accountId)?: throw UsernameNotFoundException(accountId)
         return SocialUser(
-                user.account.id,
+                user.account?.id,
                 "",
                 true,
                 true,
@@ -41,7 +41,7 @@ class AuthUserDetailService(
     @Override
     override fun execute(connection: Connection<*>): String? {
         val profile = connection.fetchUserProfile();
-        return if(userRepository.findByAccountId(getProfileId(profile)) != null) null else registerUser(connection).account.id
+        return if(userRepository.findByAccountId(getProfileId(profile)) != null) null else registerUser(connection).account?.id
     }
 
     private fun registerUser(connection: Connection<*>): User {
@@ -64,7 +64,7 @@ class AuthUserDetailService(
         val user = User();
         user.firstName= profile.firstName
         user.lastName = profile.lastName
-        user.account.id = userAccount.id
+        user.account = userAccount
         return userRepository.save(user)
     }
 

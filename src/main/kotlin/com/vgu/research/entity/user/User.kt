@@ -15,6 +15,7 @@ class User{
     var lastName: String =""
     var familyPosition: FamilyPosition? = null
     var age: Int? = null
+    var tmpUserId: String? = null
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "user")
     var familyMembers: MutableList<FamilyMember> = mutableListOf()
 
@@ -26,8 +27,8 @@ class User{
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "user" )
     var sppAdultTestList:MutableList<SppAdult> = mutableListOf()
 
-    @OneToOne
-    var account: UserAccount = UserAccount()
+    @OneToOne(cascade=[CascadeType.ALL])
+    var account: UserAccount? = UserAccount()
 
     fun update(user: User): User{
         this.age=user.age

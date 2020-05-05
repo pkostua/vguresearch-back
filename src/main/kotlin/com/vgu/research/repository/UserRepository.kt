@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface UserRepository : CrudRepository<User, Long>, JpaSpecificationExecutor<User> {
     fun findByAccountId(accountId: String): User?
+    fun findByTmpUserId(accountId: String): User?
 }

@@ -1,6 +1,7 @@
 package com.vgu.research.entity.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
+import com.vgu.research.entity.tests.SppAdult
 import com.vgu.research.entity.tests.SppChildren
 import javax.persistence.*
 
@@ -24,5 +25,9 @@ class FamilyMember (
 
     @JsonIgnore
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "familyMember" )
-    var sppTestList:MutableList<SppChildren> = mutableListOf()
+    var sppChildrenTestList:MutableList<SppChildren> = mutableListOf()
+
+    @JsonIgnore
+    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "familyMember" )
+    var sppAdultTestList:MutableList<SppAdult> = mutableListOf()
 }
