@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * org.springframework.social.vkontakte.api.AbstractVKontakteOperations#API_VERSION
  **/
 public class AbstractVKontakteOperations {
-    private final static String API_VERSION = "5.0";
+    private final static String API_VERSION = "5.88";
     private final static String VK_REST_URL = "https://api.vk.com/method/";
 
     private final boolean isAuthorized;
