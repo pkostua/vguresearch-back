@@ -40,11 +40,15 @@ class SppAdult() {
     var user: User? = null
 
     @ManyToOne
-    var familyMember: FamilyMember? = null
+    var parent: FamilyMember? = null
 
-    constructor(ansList: MutableList<TestDtoAns>, user: User?, familyMember: FamilyMember?):this(){
+    @ManyToOne
+    var child: FamilyMember? = null
+
+    constructor(ansList: MutableList<TestDtoAns>, user: User?, parent: FamilyMember?, child: FamilyMember?):this(){
         this.user = user
-        this.familyMember= familyMember
+        this.parent= parent
+        this.child = child
         ansList.forEach{ans->
             data.find { it.id == ans.id }?.let {
                 when(it.type){

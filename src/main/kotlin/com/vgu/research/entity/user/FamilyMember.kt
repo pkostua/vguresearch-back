@@ -24,10 +24,18 @@ class FamilyMember (
     }
 
     @JsonIgnore
-    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "familyMember" )
-    var sppChildrenTestList:MutableList<SppChildren> = mutableListOf()
+    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "parent" )
+    var sppChildrenTestListParent:MutableList<SppChildren> = mutableListOf()
 
     @JsonIgnore
-    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "familyMember" )
-    var sppAdultTestList:MutableList<SppAdult> = mutableListOf()
+    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "child" )
+    var sppChildrenTestListChild:MutableList<SppChildren> = mutableListOf()
+
+    @JsonIgnore
+    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "parent" )
+    var sppAdultTestListParent:MutableList<SppAdult> = mutableListOf()
+
+    @JsonIgnore
+    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "child" )
+    var sppAdultTestListChild:MutableList<SppAdult> = mutableListOf()
 }

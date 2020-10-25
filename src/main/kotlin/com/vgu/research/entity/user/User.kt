@@ -28,7 +28,7 @@ class User{
     var sppAdultTestList:MutableList<SppAdult> = mutableListOf()
 
     @OneToOne(cascade=[CascadeType.ALL])
-    var account: UserAccount? = UserAccount()
+    var account: UserAccount? = null
 
     fun update(user: User): User{
         this.age=user.age

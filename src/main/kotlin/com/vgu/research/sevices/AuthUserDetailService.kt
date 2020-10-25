@@ -46,8 +46,7 @@ class AuthUserDetailService(
 
     private fun registerUser(connection: Connection<*>): User {
         val profile = connection.fetchUserProfile()
-        val userAccount = userAccountRepository.save(
-                UserAccount(
+        val userAccount =  UserAccount(
                         getProfileId(profile),
                         profile.email?:"",
                         profile.username?:"",
@@ -58,8 +57,6 @@ class AuthUserDetailService(
                         connection.displayName?:"",
                         OAuthProviderEnum.valueOf(connection.key.providerId.toUpperCase())
                 )
-
-        );
 
         val user = User();
         user.firstName= profile.firstName

@@ -28,23 +28,16 @@ class SppAdultController (val userRepository: UserRepository,
 
     @PostMapping
     @Transactional
-    fun postTest(@RequestParam tmpUserId: String?, @RequestParam name: String?, @RequestParam age: Int?, @RequestBody ansList: TestDtoAnsWrapper): SppAdult  {
+    fun postTest(@RequestParam tmpUserId: String?, @RequestParam parenId: Long?, @RequestParam childId: Long?, @RequestBody ansList: TestDtoAnsWrapper): SppAdult  {
         val accountId = SecurityContextHolder.getContext().authentication.name
-        var user =  userRepository.findByAccountId(accountId)
-        if(user == null && tmpUserId != null){
-            user = userRepository.findByTmpUserId(tmpUserId)
-            if(user == null){
-                user = User()
-                user.tmpUserId = tmpUserId
-                user.account = null
-                userRepository.save(user)
-            }
+        val user = when{
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)
+            else -> throw Exception("user not found")
         }
-        var familyMember = user?.familyMembers?.find { it.name == name && it.age == age }
-        if(familyMember == null && name !== null && age !== null && user == null){
-            familyMember = this.familyMemberRepository.save(FamilyMember(name,age,null, FamilyPosition.PARENT).withUser(user))
-        }
-        val test = SppAdult(ansList.data, user, familyMember)
+        val parent = user?.familyMembers?.find { it.id == parenId }
+        val child = user?.familyMembers?.find { it.id == childId }
+        val test = SppAdult(ansList.data, user, parent, child)
         return this.sppAdultRepository.save(test)
 
     }

@@ -11,6 +11,7 @@ import com.vgu.research.repository.FamilyMemberRepository
 import com.vgu.research.repository.SppChildrenRepository
 import com.vgu.research.repository.UserRepository
 import org.springframework.security.core.context.SecurityContextHolder
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 
 
@@ -25,23 +26,17 @@ class SppChildrenController (val userRepository: UserRepository,
     }
 
     @PostMapping
-    fun updateUser(@RequestParam tmpUserId: String?, @RequestParam sex: Sex?, @RequestParam name: String?, @RequestParam age: Int?, @RequestBody ansList: TestDtoAnsWrapper): SppChildren  {
+    @Transactional
+    fun postTest(@RequestParam tmpUserId: String?, @RequestParam parenId: Long?, @RequestParam childId: Long?, @RequestBody ansList: TestDtoAnsWrapper): SppChildren  {
         val accountId = SecurityContextHolder.getContext().authentication.name
-        var user =  userRepository.findByAccountId(accountId)
-        if(user == null && tmpUserId != null){
-            user = userRepository.findByTmpUserId(tmpUserId)
-            if(user == null){
-                user = User()
-                user.tmpUserId = tmpUserId
-                user.account = null
-                userRepository.save(user)
-            }
+        val user = when{
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)
+            else -> throw Exception("user not found")
         }
-        var familyMember = user?.familyMembers?.find { it.name == name && it.age == age }
-        if(familyMember == null && name !== null && age !== null){
-            familyMember = this.familyMemberRepository.save(FamilyMember(name,age,sex?:Sex.BOY, FamilyPosition.CHILD).withUser(user))
-        }
-        val test = SppChildren(ansList.data, user, familyMember)
+        val parent = user?.familyMembers?.find { it.id == parenId }
+        val child = user?.familyMembers?.find { it.id == childId }
+        val test = SppChildren(ansList.data, user, parent, child)
         return this.sppChildrenRepository.save(test)
 
     }

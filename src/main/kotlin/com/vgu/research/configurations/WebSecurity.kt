@@ -25,7 +25,7 @@ class WebSecurity : WebSecurityConfigurerAdapter() {
                 .deleteCookies(cookieSessionName)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/user/**").authenticated()
+                .antMatchers("/api/user/getUser").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .apply(SpringSocialConfigurer())
