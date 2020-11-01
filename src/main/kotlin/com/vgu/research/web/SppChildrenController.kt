@@ -27,16 +27,16 @@ class SppChildrenController (val userRepository: UserRepository,
 
     @PostMapping
     @Transactional
-    fun postTest(@RequestParam tmpUserId: String?, @RequestParam parenId: Long?, @RequestParam childId: Long?, @RequestBody ansList: TestDtoAnsWrapper): SppChildren  {
+    fun postTest(@RequestParam tmpUserId: String?, @RequestParam childId: Long, @RequestBody ansList: TestDtoAnsWrapper): SppChildren  {
         val accountId = SecurityContextHolder.getContext().authentication.name
         val user = when{
-            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)
-            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)?: throw Exception("User not found")
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)?: throw Exception("User not found")
             else -> throw Exception("user not found")
         }
-        val parent = user?.familyMembers?.find { it.id == parenId }
-        val child = user?.familyMembers?.find { it.id == childId }
-        val test = SppChildren(ansList.data, user, parent, child)
+        sppChildrenRepository.findAllByUserAndChildId(user, childId).also { if(it.isNotEmpty())sppChildrenRepository.deleteAll(it) }
+        val child = user.familyMembers.find { it.id == childId }?: throw Exception("Child not found")
+        val test = SppChildren(ansList.data, user, child)
         return this.sppChildrenRepository.save(test)
 
     }

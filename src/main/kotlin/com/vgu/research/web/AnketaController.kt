@@ -20,16 +20,17 @@ class AnketaController (val userRepository: UserRepository,
 
     @PostMapping
     @Transactional
-    fun postTest(@RequestParam tmpUserId: String?, @RequestParam childId: Long?, @RequestBody data: AnketaQuestionTypeDtoWrapper): Anketa {
+    fun postTest(@RequestParam tmpUserId: String?, @RequestParam childId: Long, @RequestBody data: AnketaQuestionTypeDtoWrapper): Anketa {
         val accountId = SecurityContextHolder.getContext().authentication.name
         val user = when{
-            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)
-            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId) ?: throw Exception("User not found")
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId) ?: throw Exception("User not found")
             else -> throw Exception("user not found")
         }
+        anketaRepository.findAllByUserAndChildId(user, childId).also { if(it.isNotEmpty())anketaRepository.deleteAll(it)}
         val a = Anketa()
         a.user = user
-        a.child = user?.familyMembers?.find { it.id == childId }
+        a.child = user.familyMembers.find { it.id == childId }
         a.ansList = data.data.map { AnketaQuestion(it.id, it.ans?:"", a) }.toMutableList()
         return anketaRepository.save(a)
 

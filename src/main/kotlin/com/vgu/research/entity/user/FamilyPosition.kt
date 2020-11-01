@@ -21,14 +21,15 @@ enum class FamilyPosition (val title: String, val isAdult: Boolean) {
     SISTER ("сестра старше 18 лет", true),
 
 
-
-
-
-
-
-
-
-
-
 }
+
+val CHILDREN_POSITIONS = listOf(
+        FamilyPosition.BABY,
+        FamilyPosition.SADIK,
+        FamilyPosition.FIRST_CLASS,
+        FamilyPosition.SECOND_CLASS,
+        FamilyPosition.THIRD_CLASS,
+        FamilyPosition.FORTH_CLASS,
+        FamilyPosition.FIVE_CLASS_AND_MORE,
+        FamilyPosition.STUDENT)
 

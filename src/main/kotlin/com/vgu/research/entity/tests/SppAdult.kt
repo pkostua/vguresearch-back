@@ -1,8 +1,10 @@
 package com.vgu.research.entity.tests
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.vgu.research.dto.SppBallType
 import com.vgu.research.dto.TestDto
 import com.vgu.research.dto.TestDtoAns
+import com.vgu.research.dto.TestDtoAnsWrapper
 import com.vgu.research.entity.user.FamilyMember
 import com.vgu.research.entity.user.User
 import java.util.*
@@ -45,10 +47,14 @@ class SppAdult() {
     @ManyToOne
     var child: FamilyMember? = null
 
+    @Column(columnDefinition = "text")
+    var src: String? = null
+
     constructor(ansList: MutableList<TestDtoAns>, user: User?, parent: FamilyMember?, child: FamilyMember?):this(){
         this.user = user
         this.parent= parent
         this.child = child
+        this.src = ObjectMapper().writeValueAsString(TestDtoAnsWrapper(ansList))
         ansList.forEach{ans->
             data.find { it.id == ans.id }?.let {
                 when(it.type){

@@ -82,7 +82,6 @@ dependencies {
 
     compile('org.liquibase:liquibase-core')
     liquibaseRuntime('org.liquibase:liquibase-core:3.6.1')
-    liquibaseRuntime('org.liquibase:liquibase-groovy-dsl:2.0.1')
     liquibaseRuntime('org.postgresql:postgresql')
     
 
