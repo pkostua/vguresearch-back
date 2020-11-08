@@ -28,6 +28,7 @@ class RoomTestItem() {
     var name: String = ""
     var img: String = ""
     var rotate: Int = 0
+    var zedIndex: Int? = null
 
 
 

@@ -56,29 +56,32 @@ class SppAdult() {
         this.child = child
         this.src = ObjectMapper().writeValueAsString(TestDtoAnsWrapper(ansList))
         ansList.forEach{ans->
-            data.find { it.id == ans.id }?.let {
-                when(it.type){
-                    SppBallType.gpl-> this.gpl += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.gmin-> this.gmin += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.ypl-> this.ypl += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.ymin-> this.ymin += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.tpl-> this.tpl += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.tmin-> this.tmin += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.zpl-> this.zpl += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.zmin-> this.zmin += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.cpl-> this.cpl += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.smin-> this.smin += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.n-> this.n += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.rrc-> this.rrc += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.pdk-> this.pdk += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.vn-> this.vn += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.fy-> this.fy += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.nrc-> this.nrc += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.pnk-> this.pnk += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.vk-> this.vk += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.pzk-> this.pzk += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.pmk-> this.pmk += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    else->{}
+            if(ans.ans != null) {
+                data.find { it.id == ans.id }?.let { test ->
+                    when (test.type) {
+                        SppBallType.gpl -> ans.ans?.let { a -> this.gpl += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.gmin -> ans.ans?.let { a -> this.gmin += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.ypl -> ans.ans?.let { a -> this.ypl += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.ymin -> ans.ans?.let { a -> this.ymin += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.tpl -> ans.ans?.let { a -> this.tpl += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.tmin -> ans.ans?.let { a -> this.tmin += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.zpl -> ans.ans?.let { a -> this.zpl += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.zmin -> ans.ans?.let { a -> this.zmin += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.cpl -> ans.ans?.let { a -> this.cpl += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.smin -> ans.ans?.let { a -> this.smin += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.n -> ans.ans?.let { a -> this.n += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.rrc -> ans.ans?.let { a -> this.rrc += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.pdk -> ans.ans?.let { a -> this.pdk += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.vn -> ans.ans?.let { a -> this.vn += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.fy -> ans.ans?.let { a -> this.fy += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.nrc -> ans.ans?.let { a -> this.nrc += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.pnk -> ans.ans?.let { a -> this.pnk += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.vk -> ans.ans?.let { a -> this.vk += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.pzk -> ans.ans?.let { a -> this.pzk += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.pmk -> ans.ans?.let { a -> this.pmk += test.bal[test.ansList.indexOf(a)] ?: 0 }
+                        else -> {
+                        }
+                    }
                 }
             }
         }

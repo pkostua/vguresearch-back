@@ -36,4 +36,16 @@ class AnketaController (val userRepository: UserRepository,
 
     }
 
+    @GetMapping("/data")
+    fun getTest(@RequestParam tmpUserId: String?, @RequestParam childId: Long): MutableList<AnketaQuestion>? {
+        val accountId = SecurityContextHolder.getContext().authentication.name
+        val user = when{
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId) ?: throw Exception("User not found")
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId) ?: throw Exception("User not found")
+            else -> throw Exception("user not found")
+        }
+        return anketaRepository.findAllByUserAndChildId(user, childId).firstOrNull()?.ansList
+
+    }
+
 }

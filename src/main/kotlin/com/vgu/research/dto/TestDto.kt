@@ -39,7 +39,7 @@ enum class SppBallType{
 
 data class TestDtoAns(
         var id: Int,
-        var ans: String
+        var ans: String?
 )
 data class TestDtoAnsWrapper(
         var data: MutableList<TestDtoAns>

@@ -16,14 +16,14 @@ class RoomTestController (val userRepository: UserRepository,
                           ) {
     @PostMapping
     @Transactional
-    fun postTest(@RequestParam tmpUserId: String?, @RequestParam parenId: Long?, @RequestParam childId: Long, @RequestBody data: RoomTestItemsWrapper): RoomTest  {
+    fun postTest(@RequestParam tmpUserId: String?,  @RequestParam memberId: Long, @RequestBody data: RoomTestItemsWrapper): RoomTest  {
         val accountId = SecurityContextHolder.getContext().authentication.name
         val user = when{
             accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)?: throw Exception("User not found")
             tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)?: throw Exception("User not found")
             else -> throw Exception("user not found")
         }
-        val member = user.familyMembers.find { it.id == childId }?: throw Exception("MemberNotFound")
+        val member = user.familyMembers.find { it.id == memberId }?: throw Exception("MemberNotFound")
         roomTestRepository.findAllByUserAndMember(user, member).also { if(it.isNotEmpty())roomTestRepository.deleteAll(it) }
         val test = RoomTest(user = user, member =  member)
         data.data.forEach{
@@ -32,6 +32,18 @@ class RoomTestController (val userRepository: UserRepository,
         }
         test.items = data.data
         return roomTestRepository.save(test)
+    }
+
+    @GetMapping("/data")
+    fun getTest(@RequestParam tmpUserId: String?,  @RequestParam memberId: Long): MutableList<RoomTestItem>?  {
+        val accountId = SecurityContextHolder.getContext().authentication.name
+        val user = when{
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)?: throw Exception("User not found")
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)?: throw Exception("User not found")
+            else -> throw Exception("user not found")
+        }
+        val member = user.familyMembers.find { it.id == memberId }?: throw Exception("MemberNotFound")
+        return roomTestRepository.findAllByUserAndMember(user, member).firstOrNull()?.items
     }
 
     data class RoomTestItemsWrapper(

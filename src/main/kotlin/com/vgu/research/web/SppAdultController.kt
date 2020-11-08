@@ -43,4 +43,15 @@ class SppAdultController (val userRepository: UserRepository,
 
     }
 
+    @GetMapping("/data")
+    fun getTest(@RequestParam tmpUserId: String?, @RequestParam parentId: Long, @RequestParam childId: Long): String?  {
+        val accountId = SecurityContextHolder.getContext().authentication.name
+        val user = when{
+            accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)?: throw Exception("User not found")
+            tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)?: throw Exception("User not found")
+            else -> throw Exception("user not found")
+        }
+        return sppAdultRepository.findAllByUserAndParentIdAndChildId(user,parentId, childId).firstOrNull()?.src
+    }
+
 }

@@ -1,10 +1,7 @@
 package com.vgu.research.entity.user
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.vgu.research.entity.tests.RoomTest
-import com.vgu.research.entity.tests.RoomTestItem
-import com.vgu.research.entity.tests.SppAdult
-import com.vgu.research.entity.tests.SppChildren
+import com.vgu.research.entity.tests.*
 import javax.persistence.*
 import kotlin.jvm.Transient
 
@@ -54,6 +51,10 @@ class FamilyMember (
     @JsonIgnore
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "member" )
     var roomTestList:MutableList<RoomTest> = mutableListOf()
+
+    @JsonIgnore
+    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "child" )
+    var anketaList:MutableList<Anketa> = mutableListOf()
 
     @JsonIgnore
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "owner" )

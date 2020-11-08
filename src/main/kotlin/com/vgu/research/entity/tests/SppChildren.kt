@@ -36,13 +36,16 @@ class SppChildren() {
         this.child = child
         this.src = ObjectMapper().writeValueAsString(TestDtoAnsWrapper(ansList))
         ansList.forEach{ans->
-            data.find { it.id == ans.id }?.let {
-                when(it.type){
-                    SppBallType.smv-> this.smv += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.st-> this.st += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.sft-> this.sft += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    SppBallType.sp-> this.sp += it.bal[it.ansList.indexOf(ans.ans)]?:0
-                    else->{}
+            if(ans.ans != null) {
+                data.find { it.id == ans.id }?.let {
+                    when (it.type) {
+                        SppBallType.smv -> ans.ans?.let { a -> this.smv += it.bal[it.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.st -> ans.ans?.let { a -> this.st += it.bal[it.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.sft -> ans.ans?.let { a -> this.sft += it.bal[it.ansList.indexOf(a)] ?: 0 }
+                        SppBallType.sp -> ans.ans?.let { a -> this.sp += it.bal[it.ansList.indexOf(a)] ?: 0 }
+                        else -> {
+                        }
+                    }
                 }
             }
         }
