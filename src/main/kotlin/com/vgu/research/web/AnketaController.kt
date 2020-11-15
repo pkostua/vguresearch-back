@@ -32,6 +32,12 @@ class AnketaController (val userRepository: UserRepository,
         a.user = user
         a.child = user.familyMembers.find { it.id == childId }
         a.ansList = data.data.map { AnketaQuestion(it.id, it.ans?:"", a) }.toMutableList()
+        a.ansList.forEach{ans->
+            when (ans.type.ansList.indexOf(ans.ans)){
+                0 -> a.ball= a.ball?.plus(1)?:1.0
+                1 -> a.ball = a.ball?.plus(0.5)?:0.5
+            }
+        }
         return anketaRepository.save(a)
 
     }

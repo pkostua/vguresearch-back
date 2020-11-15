@@ -22,4 +22,6 @@ class Anketa() {
     @ManyToOne
     var child: FamilyMember? = null
 
+    var ball: Double? = 0.0
+
 }

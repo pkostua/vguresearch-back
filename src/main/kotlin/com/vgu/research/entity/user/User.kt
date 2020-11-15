@@ -6,6 +6,7 @@ import com.vgu.research.entity.tests.SppAdult
 import com.vgu.research.entity.tests.SppChildren
 import java.lang.Exception
 import javax.persistence.*
+import kotlin.jvm.Transient
 
 @Entity
 @Table(name="users")
@@ -35,6 +36,9 @@ class User{
 
     @OneToOne(cascade=[CascadeType.ALL])
     var account: UserAccount? = null
+
+    val isAdmin: Boolean
+    get() = tmpUserId == "1604210842765" || account?.id == "id7485317"
 
     fun update(user: User): User{
         this.age=user.age

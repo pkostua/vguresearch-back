@@ -20,4 +20,15 @@ class RoomTest(
     var id: Long =0
     var date: Date = Date()
 
+    val itemsCount: Int
+    get() = this.items.size
+
+    val myCount: Int
+    get() = this.items.filter { it.owner != null && it.owner?.id == member?.id }.size
+
+    val aliveCount: Int
+        get() = this.items.filter { it.type == "alive" }.size
+
+
+
 }
