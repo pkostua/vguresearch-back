@@ -29,6 +29,12 @@ class RoomTest(
     val aliveCount: Int
         get() = this.items.filter { it.type == "alive" }.size
 
+    val mySquare: Int
+        get() = this.items.filter {  it.owner != null && it.owner?.id == member?.id }.map { it.square }.sum()
+    val collectiveSquare: Int
+        get() = this.items.filter {  it.owner == null  }.map { it.square }.sum()
+    val otherSquare: Int
+        get() = this.items.filter {  it.owner != null && it.owner?.id != member?.id }.map { it.square }.sum()
 
 
 }
