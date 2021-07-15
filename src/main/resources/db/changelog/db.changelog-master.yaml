@@ -16,3 +16,21 @@ databaseChangeLog:
       - sql:
           comment: init4
           sql: create unique index UserProfilePK on UserProfile(userId);
+
+- changeSet:
+    id: add_ss_sts
+    author: pkostua
+    comment: ""
+    changes:
+      - addColumn:
+          tableName: spp_children
+          columns:
+            - column:
+                name: ss
+                type: integer
+            - column:
+                name: sts
+                type: integer
+      - sql:
+          comment: fill_ss_sts
+          sql: update spp_children set ss = 0, sts = 0;
