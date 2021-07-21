@@ -38,7 +38,9 @@ class AnketaController (val userRepository: UserRepository,
                 1 -> a.ball = a.ball?.plus(0.5)?:0.5
             }
         }
-        return anketaRepository.save(a)
+        val result = anketaRepository.save(a)
+        print(result.smv)
+        return result
 
     }
 

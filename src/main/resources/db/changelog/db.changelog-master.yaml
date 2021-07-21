@@ -34,3 +34,11 @@ databaseChangeLog:
       - sql:
           comment: fill_ss_sts
           sql: update spp_children set ss = 0, sts = 0;
+- changeSet:
+    id: anketa_rectoring
+    author: pkostua
+    comment: ""
+    changes:
+      - sql:
+          comment: remove_old
+          sql: delete from anketa_question where type > 29;

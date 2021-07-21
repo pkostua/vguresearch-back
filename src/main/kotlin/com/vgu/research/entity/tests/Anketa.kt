@@ -26,21 +26,45 @@ class Anketa() {
     var ball: Double? = 0.0
 
     val smv: Double
-        get() = ansList.filter { it.type.type == SppBallType.smv}.sumByDouble { it.type.ballList[it.type.ansList.indexOf(it.ans)] }
+        get() = ansList.filter { it.type.type == SppBallType.smv}.sumByDouble {
+            val index = it.type.ansList.indexOf(it.ans)
+            if(index == -1) 0.0
+            else it.type.ballList[index]
+        }
 
     val sft: Double
-        get() = ansList.filter { it.type.type == SppBallType.sft}.sumByDouble { it.type.ballList[it.type.ansList.indexOf(it.ans)] }
+        get() = ansList.filter { it.type.type == SppBallType.sft}.sumByDouble {
+            val index = it.type.ansList.indexOf(it.ans)
+            if(index == -1) 0.0
+            else it.type.ballList[index]
+        }
 
     val st: Double
-        get() = ansList.filter { it.type.type == SppBallType.st}.sumByDouble { it.type.ballList[it.type.ansList.indexOf(it.ans)] }
+        get() = ansList.filter { it.type.type == SppBallType.st}.sumByDouble {
+            val index = it.type.ansList.indexOf(it.ans)
+            if(index == -1) 0.0
+            else it.type.ballList[index]
+        }
 
     val ss: Double
-        get() = ansList.filter { it.type.type == SppBallType.ss}.sumByDouble { it.type.ballList[it.type.ansList.indexOf(it.ans)] }
+        get() = ansList.filter { it.type.type == SppBallType.ss}.sumByDouble {
+            val index = it.type.ansList.indexOf(it.ans)
+            if(index == -1) 0.0
+            else it.type.ballList[index]
+        }
 
     val sp: Double
-        get() = ansList.filter { it.type.type == SppBallType.sp}.sumByDouble { it.type.ballList[it.type.ansList.indexOf(it.ans)] }
+        get() = ansList.filter { it.type.type == SppBallType.sp}.sumByDouble {
+            val index = it.type.ansList.indexOf(it.ans)
+            if(index == -1) 0.0
+            else it.type.ballList[index]
+        }
 
     val sts: Double
-        get() = ansList.filter { it.type.type == SppBallType.sts}.sumByDouble { it.type.ballList[it.type.ansList.indexOf(it.ans)] }
+        get() = ansList.filter { it.type.type == SppBallType.sts}.sumByDouble {
+            val index = it.type.ansList.indexOf(it.ans)
+            if(index == -1) 0.0
+            else it.type.ballList[index]
+        }
 
 }
