@@ -19,6 +19,7 @@ class User{
     var familyPosition: FamilyPosition? = null
     var age: Int? = null
     var tmpUserId: String? = null
+    var roomCount: Int? = null
     @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "user")
     var familyMembers: MutableList<FamilyMember> = mutableListOf()
 

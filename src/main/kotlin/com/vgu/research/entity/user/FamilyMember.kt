@@ -10,7 +10,8 @@ class FamilyMember (
         var name: String="",
         var age: Int = 0,
         var sex: Sex? = null,
-        var familyPosition: FamilyPosition? = null
+        var familyPosition: FamilyPosition? = null,
+        var birthOrder: Int? = null
 )
 {
     @JsonIgnore @ManyToOne
@@ -21,7 +22,7 @@ class FamilyMember (
     @Transient var hasAnketa: Boolean? = null
     @Transient var hasRoom: Boolean? = null
     @Transient var hasSppChildren: Boolean? = null
-    @Transient var sppAdultList: MutableList<Long> = mutableListOf()
+    @Transient var hasSppAdult: Boolean? = null
 
     fun withUser(user: User?): FamilyMember{
         this.user = user
@@ -38,15 +39,11 @@ class FamilyMember (
 
     @JsonIgnore
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "child" )
-    var sppChildrenTestListChild:MutableList<SppChildren> = mutableListOf()
-
-    @JsonIgnore
-    @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "parent" )
-    var sppAdultTestListParent:MutableList<SppAdult> = mutableListOf()
+    var sppChildrenTestList:MutableList<SppChildren> = mutableListOf()
 
     @JsonIgnore
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "child" )
-    var sppAdultTestListChild:MutableList<SppAdult> = mutableListOf()
+    var sppAdultTestList:MutableList<SppAdult> = mutableListOf()
 
     @JsonIgnore
     @OneToMany(cascade=[CascadeType.REMOVE], orphanRemoval = true, mappedBy = "member" )

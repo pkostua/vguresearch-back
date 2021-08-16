@@ -13,15 +13,13 @@ data class FamilyMemberDto (
         var sex: Sex?,
         var familyPosition: FamilyPosition?,
         var user: User?,
-        var sppChildrenTestListChild:MutableList<SppChildren>,
-        var sppAdultTestListParent:MutableList<SppAdult> = mutableListOf(),
-        var sppAdultTestListChild:MutableList<SppAdult> = mutableListOf(),
+        var sppChildrenTestList:MutableList<SppChildren>,
+        var sppAdultTestList:MutableList<SppAdult> = mutableListOf(),
         var roomTestList:MutableList<RoomTest> = mutableListOf(),
         var anketaList:MutableList<Anketa> = mutableListOf()
 )
 {
     constructor(m: FamilyMember): this(m.name, m.age, m.sex, m.familyPosition, m.user,
-            m.sppChildrenTestListChild, m.sppAdultTestListParent, m.sppAdultTestListChild,
-    m.roomTestList, m.anketaList)
+            m.sppChildrenTestList,  m.sppAdultTestList, m.roomTestList, m.anketaList)
 
 }

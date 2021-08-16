@@ -20,14 +20,20 @@ class RoomTest(
     var id: Long =0
     var date: Date = Date()
 
-    val itemsCount: Int
-    get() = this.items.size
+    val myObjectCount: Int
+        get() = this.items.filter { it.owner != null && it.owner?.id == member?.id && it.type != "alive" }.size
+    val myAliveCount: Int
+        get() = this.items.filter { it.owner != null && it.owner?.id == member?.id && it.type == "alive" }.size
 
-    val myCount: Int
-    get() = this.items.filter { it.owner != null && it.owner?.id == member?.id }.size
+    val collectiveObjectCount: Int
+        get() = this.items.filter { it.owner == null && it.type != "alive" }.size
+    val collectiveAliveCount: Int
+        get() = this.items.filter { it.owner == null && it.type == "alive" }.size
 
-    val aliveCount: Int
-        get() = this.items.filter { it.type == "alive" }.size
+    val otherObjectCount: Int
+        get() = this.items.filter { it.owner != null && it.owner?.id != member?.id && it.type != "alive" }.size
+    val otherAliveCount: Int
+        get() = this.items.filter { it.owner != null && it.owner?.id != member?.id && it.type == "alive" }.size
 
     val mySquare: Int
         get() = this.items.filter {  it.owner != null && it.owner?.id == member?.id }.map { it.square }.sum()

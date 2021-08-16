@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SppAdultRepository : CrudRepository<SppAdult, Long>, JpaSpecificationExecutor<SppAdult> {
 
-    fun findAllByUserAndParentIdAndChildId(user: User, parentId: Long, childId: Long): List<SppAdult>
     fun findAllByUserAndChildId(user: User, childId: Long): List<SppAdult>
-    fun existsByUserAndParentIdAndChildId(user: User, parentId: Long, childId: Long): Boolean
+    fun existsByUserAndChildId(user: User, childId: Long): Boolean
 
 }

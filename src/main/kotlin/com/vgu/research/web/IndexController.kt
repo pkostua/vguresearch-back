@@ -36,11 +36,7 @@ class IndexController (val userRepository: UserRepository,
                 child.hasAnketa = anketaRepository.existsByUserAndChildId(user, it)
                 child.hasRoom = roomTestRepository.existsByUserAndMemberId(user, it)
                 child.hasSppChildren = sppChildrenRepository.existsByUserAndChildId(user, it)
-                child.sppAdultList = sppAdultRepository.findAllByUserAndChildId(user,it).mapNotNull { it.parent?.id }.toMutableList()
-            }
-        }
-        user.familyMembers.forEach{child->
-            child.id?.let {
+                child.hasSppAdult = sppAdultRepository.existsByUserAndChildId(user, it)
                 child.hasRoom = roomTestRepository.existsByUserAndMemberId(user, it)
             }
         }

@@ -28,30 +28,29 @@ class SppAdultController (val userRepository: UserRepository,
 
     @PostMapping
     @Transactional
-    fun postTest(@RequestParam tmpUserId: String?, @RequestParam parentId: Long, @RequestParam childId: Long, @RequestBody ansList: TestDtoAnsWrapper): SppAdult  {
+    fun postTest(@RequestParam tmpUserId: String?, @RequestParam childId: Long, @RequestBody ansList: TestDtoAnsWrapper): SppAdult  {
         val accountId = SecurityContextHolder.getContext().authentication.name
         val user = when{
             accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)?: throw Exception("User not found")
             tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)?: throw Exception("User not found")
             else -> throw Exception("user not found")
         }
-        sppAdultRepository.findAllByUserAndParentIdAndChildId(user,parentId, childId).also { if(it.isNotEmpty())sppAdultRepository.deleteAll(it) }
-        val parent = user.familyMembers.find { it.id == parentId }?: throw Exception("Parent not found")
+        sppAdultRepository.findAllByUserAndChildId(user, childId).also { if(it.isNotEmpty())sppAdultRepository.deleteAll(it) }
         val child = user.familyMembers.find { it.id == childId }?: throw Exception("Child not found")
-        val test = SppAdult(ansList.data, user, parent, child)
+        val test = SppAdult(ansList.data, user, null, child)
         return this.sppAdultRepository.save(test)
 
     }
 
     @GetMapping("/data")
-    fun getTest(@RequestParam tmpUserId: String?, @RequestParam parentId: Long, @RequestParam childId: Long): String?  {
+    fun getTest(@RequestParam tmpUserId: String?,  @RequestParam childId: Long): String?  {
         val accountId = SecurityContextHolder.getContext().authentication.name
         val user = when{
             accountId != "anonymousUser"-> userRepository.findByAccountId(accountId)?: throw Exception("User not found")
             tmpUserId != null  -> userRepository.findByTmpUserId(tmpUserId)?: throw Exception("User not found")
             else -> throw Exception("user not found")
         }
-        return sppAdultRepository.findAllByUserAndParentIdAndChildId(user,parentId, childId).firstOrNull()?.src
+        return sppAdultRepository.findAllByUserAndChildId(user, childId).firstOrNull()?.src
     }
 
 }
