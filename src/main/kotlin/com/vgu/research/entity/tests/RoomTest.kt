@@ -21,26 +21,26 @@ class RoomTest(
     var date: Date = Date()
 
     val myObjectCount: Int
-        get() = this.items.filter { it.owner != null && it.owner?.id == member?.id && it.type != "alive" }.size
+        get() = this.items.filter { it.owner != null && it.owner?.id == member?.id && it.type != "human" }.size
     val myAliveCount: Int
-        get() = this.items.filter { it.owner != null && it.owner?.id == member?.id && it.type == "alive" }.size
+        get() = this.items.filter { it.owner != null && it.owner?.id == member?.id && it.type == "human" }.size
 
     val collectiveObjectCount: Int
-        get() = this.items.filter { it.owner == null && it.type != "alive" }.size
+        get() = this.items.filter { it.owner == null && it.type != "human" }.size
     val collectiveAliveCount: Int
-        get() = this.items.filter { it.owner == null && it.type == "alive" }.size
+        get() = this.items.filter { it.owner == null && it.type == "human" }.size
 
     val otherObjectCount: Int
-        get() = this.items.filter { it.owner != null && it.owner?.id != member?.id && it.type != "alive" }.size
+        get() = this.items.filter { it.owner != null && it.owner?.id != member?.id && it.type != "human" }.size
     val otherAliveCount: Int
-        get() = this.items.filter { it.owner != null && it.owner?.id != member?.id && it.type == "alive" }.size
+        get() = this.items.filter { it.owner != null && it.owner?.id != member?.id && it.type == "human" }.size
 
     val mySquare: Int
-        get() = this.items.filter {  it.owner != null && it.owner?.id == member?.id }.map { it.square }.sum()
+        get() = this.items.filter {  it.owner != null && it.owner?.id == member?.id }.map { it.relativeSquare }.sum().toInt()
     val collectiveSquare: Int
-        get() = this.items.filter {  it.owner == null  }.map { it.square }.sum()
+        get() = this.items.filter {  it.owner == null  }.map { it.relativeSquare }.sum().toInt()
     val otherSquare: Int
-        get() = this.items.filter {  it.owner != null && it.owner?.id != member?.id }.map { it.square }.sum()
+        get() = this.items.filter {  it.owner != null && it.owner?.id != member?.id }.map { it.relativeSquare }.sum().toInt()
 
 
 }
